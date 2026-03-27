@@ -20,26 +20,26 @@ from PIL import Image
 # Persistent mss instance (avoid re-creating each frame)
 _mss_instance = None
 
-# Check for CoreGraphics availability
+# Check for CoreGraphics availability - DISABLED due to PyObjC version check on macOS 26
 _HAS_COREGRAPHICS = False
-try:
-    from Quartz import (
-        CGWindowListCreateImage,
-        kCGWindowListOptionOnScreenOnly,
-        kCGNullWindowID,
-        CGImageGetWidth,
-        CGImageGetHeight,
-        CGImageGetBytesPerRow,
-        CGDataProviderCopyData,
-        CGImageGetDataProvider,
-        CGRectMake,
-        CGMainDisplayID,
-        CGDisplayPixelsWide,
-        CGDisplayPixelsHigh,
-    )
-    _HAS_COREGRAPHICS = True
-except ImportError:
-    pass
+# try:
+#     from Quartz import (
+#         CGWindowListCreateImage,
+#         kCGWindowListOptionOnScreenOnly,
+#         kCGNullWindowID,
+#         CGImageGetWidth,
+#         CGImageGetHeight,
+#         CGImageGetBytesPerRow,
+#         CGDataProviderCopyData,
+#         CGImageGetDataProvider,
+#         CGRectMake,
+#         CGMainDisplayID,
+#         CGDisplayPixelsWide,
+#         CGDisplayPixelsHigh,
+#     )
+#     _HAS_COREGRAPHICS = True
+# except ImportError:
+#     pass
 
 
 def _get_mss():

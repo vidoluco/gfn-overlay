@@ -15,7 +15,8 @@ import os
 import threading
 import tkinter as tk
 
-from pynput import keyboard
+# Disabled due to PyObjC compatibility issue on macOS 26 alpha
+# from pynput import keyboard
 
 from capture import get_backend_name
 from vision_provider import VisionProvider, VisionConfig, VisionResult
@@ -29,7 +30,7 @@ OVERLAY_ALPHA = 0.82
 # M4 Pro optimized defaults
 VISION_CONFIG = VisionConfig(
     api_url="http://localhost:1234/v1/chat/completions",
-    model="default",
+    model="qwen/qwen3-8b",
     fps=8,                # M4 Pro handles 8+ FPS with mss backend
     frame_buffer_size=2,
     capture_scale=0.25,   # 25% — fast capture, small payloads (~48 KB)
@@ -219,7 +220,13 @@ def main():
 
     provider = VisionProvider(VISION_CONFIG)
     overlay = OverlayApp(provider)
-    setup_hotkeys(overlay)
+
+    # TODO: Hotkeys disabled due to PyObjC version check issue on macOS 26 alpha
+    # setup_hotkeys(overlay)
+    print("  NOTE: Hotkeys disabled - use window controls")
+    print("  Click 'Start' button in overlay to begin recording")
+
+    overlay.show()  # Show overlay immediately
     overlay.run()
 
     print("GFN Overlay stopped.")
